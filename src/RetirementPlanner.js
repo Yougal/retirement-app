@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Line } from "react-chartjs-2";
+import CurrencyInput from 'react-currency-input-field';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -79,31 +80,34 @@ const RetirementPlanner = () => {
       <h1 className="text-2xl font-bold mb-4">Retirement Planner</h1>
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label>Portfolio Balance</label>
-          <input
-            type="number"
+          <label>Portfolio Balance </label>
+          <CurrencyInput
+            decimalsLimit={2}
+            prefix="$"
             value={portfolioBalance}
-            onChange={(e) => setPortfolioBalance(Number(e.target.value))}
+            onValueChange={(value) => setPortfolioBalance(Number(value))}
           />
         </div>
         <div>
-          <label>Annual Expenses</label>
-          <input
-            type="number"
+          <label>Annual Expenses </label>
+          <CurrencyInput
+            decimalsLimit={2}
+            prefix="$"
             value={annualExpenses}
-            onChange={(e) => setAnnualExpenses(Number(e.target.value))}
+            onValueChange={(value) => setAnnualExpenses(value)}
           />
         </div>
         <div>
-          <label>Non-Portfolio Income</label>
-          <input
-            type="number"
+          <label>Non-Portfolio Income </label>
+          <CurrencyInput
+            decimalsLimit={2}
+            prefix="$"
             value={nonPortfolioIncome}
-            onChange={(e) => setNonPortfolioIncome(Number(e.target.value))}
+            onValueChange={(value) => setNonPortfolioIncome(value)}
           />
         </div>
         <div>
-          <label>Starting Age</label>
+          <label>Starting Age </label>
           <input
             type="number"
             value={startingAge}
@@ -111,7 +115,7 @@ const RetirementPlanner = () => {
           />
         </div>
         <div>
-          <label>ROI (%)</label>
+          <label>ROI (%) </label>
           <input
             type="number"
             value={roi}
@@ -119,7 +123,7 @@ const RetirementPlanner = () => {
           />
         </div>
         <div>
-          <label>Tax Rate (%)</label>
+          <label>Tax Rate (%) </label>
           <input
             type="number"
             value={taxRate}
@@ -127,7 +131,7 @@ const RetirementPlanner = () => {
           />
         </div>
         <div>
-          <label>Inflation Rate (%)</label>
+          <label>Inflation Rate (%) </label>
           <input
             type="number"
             value={inflationRate}
@@ -155,12 +159,12 @@ const RetirementPlanner = () => {
           <tbody>
             {projections.map((p, i) => (
               <tr key={i}>
-                <td>{p.age}</td>
-                <td>${p.portfolioValue.toLocaleString()}</td>
-                <td>${p.withdrawal.toLocaleString()}</td>
-                <td>${p.taxes.toLocaleString()}</td>
-                <td>${p.portfolioGrowth.toLocaleString()}</td>
-                <td>${p.remainingBalance.toLocaleString()}</td>
+                <td style={{ color: p.portfolioValue < 0 ? 'red' : 'inherit' }}>{p.age}</td>
+                <td style={{ color: p.portfolioValue < 0 ? 'red' : 'inherit' }}>${p.portfolioValue.toLocaleString()}</td>
+                <td style={{ color: p.portfolioValue < 0 ? 'red' : 'inherit' }}>${p.withdrawal.toLocaleString()}</td>
+                <td style={{ color: p.portfolioValue < 0 ? 'red' : 'inherit' }}>${p.taxes.toLocaleString()}</td>
+                <td style={{ color: p.portfolioValue < 0 ? 'red' : 'inherit' }}>${p.portfolioGrowth.toLocaleString()}</td>
+                <td style={{ color: p.portfolioValue < 0 ? 'red' : 'inherit' }}>${p.remainingBalance.toLocaleString()}</td>
               </tr>
             ))}
           </tbody>
